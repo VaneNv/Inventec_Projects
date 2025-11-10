@@ -1,0 +1,46 @@
+<!--Date 2025/22/05  Inventec Project
+#Name Project "Model Deployment and Basic Calling Ollama"
+#Vanessa Nava Alberto -->
+
+<!DOCTYE html>
+<!--Language-->
+<html lang="en">
+
+<head>
+  <!--Codification-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+
+    <title>Interface AI</title>
+
+    <!--Charge local files CSS-->
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+    <div class="container">
+      <header>
+        <h1>AI Assistant</h1>
+        <p>Ollama DeepSeek-r1:1.5b</p>
+      </header>
+
+    <main id="chat-box">
+      <div class="message bot">
+        <div class="bubble">Hello! How can I help you today?</div>        
+      </div>
+    </main>
+
+    <form id="chat-form">
+      <input 
+      type="text" 
+      id="user-input"
+      placeholder = "Write your question"
+      autocomplete = "off" 
+      required/>
+      <button type = "submit" id="send-btn">Send</button>
+    </form>
+  </div>
+
+    <script src="script.js"></script>
+  </body>
+  </html>
