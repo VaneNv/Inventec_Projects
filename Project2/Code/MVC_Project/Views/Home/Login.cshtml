@@ -1,0 +1,145 @@
+﻿@{
+    Layout = null;
+    var error = ViewBag.Error as string;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login</title>
+
+    <style>
+        /* Fondo y centrado */
+        body {
+            margin: 0;
+            padding:0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #f57f17, #f06292);
+        }
+
+        /* Caja */
+        .login-box {
+            background: White;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+            .login-header h2 {
+                margin: 0;
+                font-size: 26px;
+                color: #333;
+            }
+
+        .input-group {
+            margin-bottom: 14px;
+            text-align: left;
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #d81b60;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border-radius: 22px;
+            border: 2px solid #f48fb1;
+            background: #fce4ec;
+            outline: none;
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: border-color .18s, background .18s;
+        }
+
+            input[type="text"]:focus, input[type="password"]:focus {
+                border-color: #f06292;
+                background: #fff;
+            }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: none;
+            border-radius: 22px;
+            background: linear-gradient(90deg, #f57f17, #f06292);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+            .btn-login:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 26px rgba(0,0,0,0.22);
+            }
+
+        .error {
+            color: #c62828;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        /* Opciones (opcional) */
+        .options {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 14px;
+            color: #6b6b6b;
+        }
+
+            .options a {
+                color: #d81b60;
+                text-decoration: none;
+                margin: 0 6px;
+            }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="login-header">
+            <h2>Iniciar sesión</h2>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <p class="error">@ViewBag.Error</p>
+        }
+
+        <form method="post" asp-action="Login" asp-controller="Home">
+            <div class="input-group">
+                <label class="input-label" for="UserName">Username</label>
+                <input type="text" id="UserName" name="UserName" required autocomplete="username" />
+            </div>
+
+            <div class="input-group">
+                <label class="input-label" for="Password">Password</label>
+                <input type="password" id="Password" name="Password" required autocomplete="current-password" />
+            </div>
+
+            <input type="submit" class="btn-login" value="Ingresar" />
+        </form>
+
+        <div class="options">
+            <!-- Opcional: enlaces o ayuda -->
+            <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,328 @@
+﻿@{
+    ViewBag.Title = "查询列表";
+}
+<section class="content">
+    <span style="text-align:center;color:darkred;padding:5px;font-size:2em">@ViewBag.Title</span>
+    <div style="margin:10px;">
+        <form class="layui-form" id="searchForm">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">编号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input layui-input-wide" id="keyword" name="keyword">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <a class="layui-btn layui-btn-sm" onclick="onSearch()">查询</a>
+                    <a class="layui-btn layui-btn-sm" onclick="onAdd()">新增</a>
+                    <a class="layui-btn layui-btn-sm" onclick="onExport()">导出</a>
+                </div>
+            </div>
+        </form>
+        <table id="currentTableId" lay-filter="currentTableFilter"></table>
+    </div>
+</section>
+<div id="EditForm" class="layui-form" style="display:none;">
+    <fieldset>
+        <legend>新增信息</legend>
+        <form id="EditFormDiv">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">编号</label>
+                <div class="layui-input-block">
+                    <input name="SerialNo" id="SerialNo" placeholder="请输入编号" value="" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">所属</label>
+                <div class="layui-input-block">
+                    <input name="Brand" id="Brand" placeholder="请输入所属" value="" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">名称</label>
+                <div class="layui-input-block">
+                    <input name="Name" id="Name" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">图片</label>
+                <div class="layui-input-block">
+                    <div id="FileNameDiv"></div>
+                    <input type="hidden" name="Pic" id="Pic" />
+                    <a id="importFileName" class="layui-btn layui-btn-sm" href="javascript:void(0);">上传附件</a>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">类别</label>
+                <div class="layui-input-block">
+                    <input name="Type" id="Type" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">数量</label>
+                <div class="layui-input-block">
+                    <input type="number" name="Num" id="Num" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">尺寸/规格</label>
+                <div class="layui-input-block">
+                    <input name="Size" id="Size" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">作者/对接人</label>
+                <div class="layui-input-block">
+                    <input name="Author" id="Author" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">备注/位置</label>
+                <div class="layui-input-block">
+                    <input name="Remark" id="Remark" class="layui-input">
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>
+<script>
+    var tablelns = null;
+
+    //layui通用模块
+    layui.use(['table', 'form', 'laydate', 'upload'], function () {
+        var table = layui.table;
+        var form = layui.form;
+        var laydate = layui.laydate;
+        var upload = layui.upload;
+
+        var importCostindex2;
+        upload.render({
+            elem: '#importFileName'
+            , url: '/Home/AddFileName' //改成您自己的上传接口
+            , data: {
+            }
+            , auto: true
+            , accept: 'file'
+            , multiple: false
+            , before() {
+                importCostindex2 = layer.load(2);
+            }
+            , done: function (res, index) {
+                if (res.code == 1) {
+                    $("#FileNameDiv").html('<img src="/Files/Pic/' + res.data + '" style="width:100px;height:100px" />');
+                    $("#Pic").val(res.data);
+                }
+                layer.close(importCostindex2);
+                layer.alert(res.message);
+            }
+        });
+        tablelns = table.render({
+            elem: '#currentTableId',
+            height: innerHeight - 180,
+            method: 'post',
+            url: '',
+            limit: 50,
+            request: {
+                pageName: 'pageNumber', //页码的参数名称，默认：page
+                limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            where: {
+                sortName: 'Badge',
+                sortOrder: 'Asc'
+            },
+            toolbar: '',
+            page: true,
+            cols: [[
+                { type: 'numbers', fixed: 'left' },
+                { field: 'serialNo', width: 160, title: '编号' },
+                { field: 'brand', width: 160, title: '所属' },
+                { field: 'name', width: 160, title: '名称' },
+                {
+                    field: 'pic', width: 160, title: '图片', templet: function (row) {
+                        return '<a target="_blank" href="/Files/Pic/' + row.pic + '" ><img src="/Files/Pic/' + row.pic + '" style="width:50px;height:50px;" /></a>';
+                    }
+                },
+                { field: 'type', width: 200, title: '类别' },
+                { field: 'num', width: 160, title: '数量' },
+                { field: 'size', width: 160, title: '尺寸/规格' },
+                { field: 'author', width: 160, title: '作者/对接人' },
+                { field: 'remark', width: 160, title: '备注/位置' },
+               // { field: 'createTime', width: 160, title: '创建时间', templet: function (row) { return DateTimeFormatter(row.CreateTime) } },
+                {
+                    field: '', title: '操作', width: 380, sort: true, fixed: 'right', templet: function (data) {
+                        var html = "";
+                        html += '<a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="edit">编辑</a>';
+                        html += '<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delete">删除</a>';
+                        return html;
+                    }
+                }
+            ]],
+            done: function (res, curr, count) {
+                //var that = this.elem.next();
+
+                //res.rows.forEach(function (item, index) {
+
+                //    that.find(".layui-table-box tbody tr[data-index='" + index + "'] td[data-field='BankName']").css("background-color", "#ffeb3b");
+                //    that.find(".layui-table-box tbody tr[data-index='" + index + "'] td[data-field='BankNo']").css("background-color", "#ffeb3b");
+
+                //});
+
+                //for (var i = 0; i < res.rows.length; i++) {
+                //    if (res.rows[i].Status == '退回') {
+                //        $(".layui-table tbody tr").eq(i).css("background-color", "Red")
+                //        $(".layui-table tbody tr").eq(i).css("color", "white")
+                //    }
+                //}
+
+            }
+        });
+        table.on('sort(currentTableFilter)', function (obj) {
+            var p = $.serializeObject($('#searchForm'));
+            tablelns.reload({
+                initSort: obj,
+                where: Object.assign({ sortName: obj.field, sortOrder: obj.type }, p)
+            })
+        })
+        table.on('toolbar(currentTableFilter)', function (obj) {
+
+        });
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'delete') {
+                layer.prompt({ title: '请输入原因', formType: 2 }, function (text, index) {
+                    var p = {
+                        SerialNo: data.serialNo,
+                        DeleteReason: text
+                    }
+                    layer.close(index);
+                    var index2 = layer.load(2);
+                    $.post('/Home/Delete', p, function (result) {
+                        layer.close(index2);
+                        if (result.code == 1) {
+                            onSearch();
+                            layer.alert('操作成功！');
+                        }
+                        else {
+                            layer.alert(result.message);
+                        }
+                    })
+                });
+            }
+            if (obj.event === 'edit') {
+                $("#EditFormDiv")[0].reset();
+                $("#SerialNo").val(data.serialNo);
+                $('#SerialNo').attr("readonly", 'readonly');
+                $("#Brand").val(data.brand);
+                $("#Name").val(data.name);
+                $("#Pic").val(data.pic);
+                $("#Type").val(data.type);
+                $("#Num").val(data.num);
+                $("#Size").val(data.size);
+                $("#Author").val(data.author);
+                $("#Remark").val(data.remark);
+                form.render();
+                var index = layer.open({
+                    title: '新增',
+                    type: 1,
+                    shade: 0.2,
+                    shadeClose: true,
+                    area: ['80%', '70%'],
+                    btn: ["保存", "取消"],
+                    content: $('#EditForm'),
+                    yes: function (res) {
+                        var lindex = layer.load(0);
+                        var p = $.serializeObject($('#EditFormDiv'));
+                        $.post("/Home/Edit", p, function (result) {
+                            if (result.code == 1) {
+                                layer.close(lindex);
+                                layer.msg(result.message);
+                                onSearch();
+                            } else {
+                                layer.msg(result.message, function () {
+                                    layer.close(lindex);
+                                });
+                            }
+                        })
+
+                    },
+                    btn2: function () {
+                        layer.closeAll();
+                    }
+                });
+            }
+        });
+        table.on('edit(currentTableFilter)', function (obj) {
+
+            var value = obj.value //得到修改后的值
+                , data = obj.data //得到所在行所有键值
+                , field = obj.field; //得到字段
+            //var selector = obj.tr.selector + ' td[data-field="' + obj.field + '"] div';
+            // 单元格编辑之前的值
+            //var oldtext = $(selector).text();
+            UpdateInfo(data.ID, field, value)
+
+        })
+
+        onSearch();
+
+    });
+    function onAdd() {
+        $('#SerialNo').removeAttr("readonly");
+        $("#EditFormDiv")[0].reset();
+        var index = layer.open({
+            title: '新增信息',
+            type: 1,
+            shade: 0.2,
+            shadeClose: true,
+            area: ['90%', '90%'],
+            btn: ["保存", "取消"],
+            content: $('#EditForm'),
+            yes: function (res) {
+                var lindex = layer.load(0);
+                $.post("/Home/Add", {
+                    "SerialNo": $('#SerialNo').val(),
+                    "Brand": $('#Brand').val(),
+                    "Name": $('#Name').val(),
+                    "Pic": $('#Pic').val(),
+                    "Type": $('#Type').val(),
+                    "Num": $('#Num').val(),
+                    "Size": $('#Size').val(),
+                    "Author": $('#Author').val(),
+                    "Remark": $('#Remark').val()
+                }, function (result) {
+                    layer.close(lindex);
+                    if (result.code == 1) {
+                        layer.msg(result.message);
+                        onSearch();
+                    } else {
+                        layer.msg(result.message);
+                    }
+                })
+                layer.closeAll();
+            },
+            btn2: function () {
+                layer.closeAll();
+            }
+        });
+    }
+    //查询
+    function onSearch() {
+        var p = $.serializeObject($('#searchForm'));;
+        tablelns.reload({
+            url: '/Home/GetList',
+            where: p,
+            page: { curr: 1 }
+        })
+    }
+
+    function onExport() {
+        var p = $.serializeObject($('#searchForm'));
+        var url = '/Home/ExportData';
+        var index = layer.load(2);
+        $.post(url, p, function (result) {
+            layer.close(index);
+            console.log(result)
+            window.location.href = '/Home/DownLoadExcel?filePath=' + result.filePath;
+        })
+    }
+</script>
