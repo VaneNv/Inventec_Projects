@@ -81,7 +81,7 @@ function addMessage (text, sender){
 }
 
 const attachBtn= document.getElementById("attach-btn");
-const attachMenu= document.querySelector("attach-menu");
+const attachMenu= document.querySelector(".attach-menu");
 
 attachBtn.addEventListener("click",()=>{
     attachMenu.style.display = attachMenu.style.display === "block"?"none":"block";
@@ -97,6 +97,6 @@ document.getElementById("add-image").addEventListener("click",()=>{
     alert("Aqui se abrira el selector de imagen");
 });
 
-document.getElementById("add-pdf").addEventListener("click",()=>{
+document.getElementById("add-doc").addEventListener("click",()=>{
     alert("Aqui se abrira el selector de documentos");
 });

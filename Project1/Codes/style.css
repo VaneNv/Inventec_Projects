@@ -161,30 +161,37 @@ main::-webkit-scrollbar-thumb{
 }
 
 #attach-btn{
-    width: 40px;
-    height: 40px;
-    font-size: 1.4em;
+    position: relative;
+    top: -7pt;
+    width: 35px;
+    height: 35px;
+    font-size: 2.5em;
+    font-weight: 900;
+    line-height: 50px;
+    text-align: center;
     border:none;
-    border-radius: 8px;
-    background: #b4a7d6;
-    color: white;
+    background: none;
+    color: #4b0082;
     cursor: pointer;
+    border-radius:80%;
+    transition: transform 0.2s, color 0.2s;
 }
 
 #attach-btn-hover{
-    background: #9f86c0;
+    color:#5e1c7d;
+    transform: scale(1.2);
 }
 
 .attach-menu{
     display: none;
-    position:relative;
+    position:absolute;
     bottom: 50px;
     right: 0;
     width: 120px;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: #601198;
+    border: 1px solid #4c0d79;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 8px rgba(36, 15, 59, 0.3);
     z-index: 100;
 }
 
@@ -194,14 +201,14 @@ main::-webkit-scrollbar-thumb{
     padding: 8px 10px;
     border: none;
     background:none;
-    color:#333;
+    color:#cfc4ee;
     cursor: pointer;
     text-align: left;
     font-weight: 500;
 }
 
-.attach-menu button :hover{
-    background-color: f0f0f0;
+.attach-menu button:hover{
+    background-color: #b4a7d64b;
 }
 
 
