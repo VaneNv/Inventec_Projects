@@ -52,6 +52,7 @@ function formatResponse(text){
     text = text
         .replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>") //negrita
         .replace(/\*(.*?)\*/g,"<em>$1</em>") //cursiva
+        .replace(/__(.*?)__/g,"<u>$1</u>")  //subrayado
         .replace(/`(.*?)`/g,"<code>$1</code>"); //code
     
     //Convert text to paragraphs
@@ -78,3 +79,24 @@ function addMessage (text, sender){
 
     chatBox.scrollTop = chatBox.scrollHeight;
 }
+
+const attachBtn= document.getElementById("attach-btn");
+const attachMenu= document.querySelector("attach-menu");
+
+attachBtn.addEventListener("click",()=>{
+    attachMenu.style.display = attachMenu.style.display === "block"?"none":"block";
+});
+
+document.addEventListener("click",(e)=>{
+    if(!attachBtn.contains(e.target)&&!attachMenu.contains(e.target)){
+        attachMenu.style.display="none";
+    }
+});
+
+document.getElementById("add-image").addEventListener("click",()=>{
+    alert("Aqui se abrira el selector de imagen");
+});
+
+document.getElementById("add-pdf").addEventListener("click",()=>{
+    alert("Aqui se abrira el selector de documentos");
+});

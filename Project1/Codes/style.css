@@ -35,15 +35,33 @@ body{
 
 /*Header of container*/
 header{
+    position: relative;
     padding: 16px;
-    text-align: center;
     background: #4b0082;
     color: #ffff;
+}
+
+.header-1{
+    text-align: center;
 }
 
 header h1{
     font-size: 1.6em;
     margin-bottom: 4px;
+}
+
+#history-btn{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 0.8cm;
+    height: 0.3cm;
+    background:#6a5acd;
+    border:none;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 /*Chat*/
@@ -134,4 +152,56 @@ main::-webkit-scrollbar-thumb{
     background: #483d8b;
     border-radius: 10px;
 }
+
+/*attachment and submenu*/
+.attach-container{
+    position: relative;
+    display: inline-block;
+    margin-left: 8px;
+}
+
+#attach-btn{
+    width: 40px;
+    height: 40px;
+    font-size: 1.4em;
+    border:none;
+    border-radius: 8px;
+    background: #b4a7d6;
+    color: white;
+    cursor: pointer;
+}
+
+#attach-btn-hover{
+    background: #9f86c0;
+}
+
+.attach-menu{
+    display: none;
+    position:relative;
+    bottom: 50px;
+    right: 0;
+    width: 120px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+}
+
+.attach-menu button{
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    border: none;
+    background:none;
+    color:#333;
+    cursor: pointer;
+    text-align: left;
+    font-weight: 500;
+}
+
+.attach-menu button :hover{
+    background-color: f0f0f0;
+}
+
 
