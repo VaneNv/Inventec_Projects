@@ -54,7 +54,7 @@ header{
 
 #history-btn{
     position: absolute;
-    right: 20px;
+    right:0px;
     top: 50%;
     transform: translateY(80%);
     width: 1.2cm;
@@ -68,7 +68,7 @@ header{
 .history-menu{
     display: none;
     position: absolute;
-    top: 45px;
+    top: 40px;
     right: 0;
     width: 150px;
     height: 450px; ;
@@ -93,9 +93,9 @@ header{
 
 #new-chat-btn{
     position: absolute;
-    right: 20px;
+    right: 0px;
     top: 100%;
-    transform: translateY(-60%);
+    transform: translateY(-50%);
     width: 1.2cm;
     height: 0.5cm;
     background:#6a5acd;
