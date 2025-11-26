@@ -5,11 +5,11 @@
 const form = document.getElementById("chat-form");
 const userInput = document.getElementById("user-input");
 const chatBox = document.getElementById("chat-box");
+const historyBtn = document.getElementById("history-btn");
+const attachBtn= document.getElementById("attach-btn");
 
-//Chat history 
-//window.addEventListener("load",()=>{
-    //const history =
-//})
+const historyMenu = document.querySelector(".history-menu");
+const attachMenu= document.querySelector(".attach-menu");
 
 form.addEventListener("submit",async(e)=>{
     e.preventDefault();
@@ -41,6 +41,24 @@ form.addEventListener("submit",async(e)=>{
         chatBox.removeChild(chatBox.lastElementChild);
         addMessage("Error connecting to backend.","bot");
     }
+
+    try{
+        addDocument();
+
+    }catch(error){
+        console.error("Error: ", error);
+        chatBox.removeChild(chatBox.lastElementChild);
+        addMessage("Your document is not compatible, sorrry.","bot");
+    }
+
+    try{
+        history();
+    }catch(error){
+        console.error("Error: ", error);
+        chatBox.removeChild(chatBox.lastElementChild);
+        addMessage("Hello?","bot");
+    }
+
 });
 
 //Impove format of response of Ollama in the web page 
@@ -80,23 +98,37 @@ function addMessage (text, sender){
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-const attachBtn= document.getElementById("attach-btn");
-const attachMenu= document.querySelector(".attach-menu");
+function addDocument(){
 
-attachBtn.addEventListener("click",()=>{
+    attachBtn.addEventListener("click",()=>{
     attachMenu.style.display = attachMenu.style.display === "block"?"none":"block";
-});
+    });
 
-document.addEventListener("click",(e)=>{
-    if(!attachBtn.contains(e.target)&&!attachMenu.contains(e.target)){
-        attachMenu.style.display="none";
-    }
-});
+    document.addEventListener("click",(e)=>{
+        if(!attachBtn.contains(e.target)&&!attachMenu.contains(e.target)){
+            attachMenu.style.display="none";
+        }     
+    });
 
-document.getElementById("add-image").addEventListener("click",()=>{
-    alert("Aqui se abrira el selector de imagen");
-});
+    document.getElementById("add-image").addEventListener("click",()=>{
+        alert("Aqui se abrira el selector de imagen");
+    });
 
-document.getElementById("add-doc").addEventListener("click",()=>{
-    alert("Aqui se abrira el selector de documentos");
-});
+    document.getElementById("add-doc").addEventListener("click",()=>{
+        alert("Aqui se abrira el selector de documentos");
+    });
+}
+
+function history(){
+    historyBtn.addEventListener("click",()=>{
+        historyMenu.style.display = historyMenu.style.display === "block"?"none":"block";
+    });
+
+    document.addEventListener("click",(e)=>{
+        if (!historyBtn.contains(e.target)&&!historyMenu.contains(e.target)){
+            historyMenu.style.display="none";
+        }
+    })
+}
+
+
