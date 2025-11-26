@@ -66,19 +66,14 @@ function formatResponse(text){
         .replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>") //negrita
         .replace(/\*(.*?)\*/g,"<em>$1</em>") //cursiva
         .replace(/__(.*?)__/g,"<u>$1</u>")  //subrayado
-        .replace(/`(.*?)`/g,"<code>$1</code>") //code
-        .replace(/\n/g,"<br>");
-
-        /*
-        ;
+        .replace(/`(.*?)`/g,"<code>$1</code>"); //code
         //Convert text to paragraphs
         const paragraph = text
         .split(/\n\s*\n/)
         .map(p=>`<p>${p.trim()}</p>`)
         .join("");
 
-        return paragraph..replace(/\n/g,"<br>");
-         */
+        return paragraph.replace(/\n/g,"<br>");
 }
 
 //----------------------
@@ -112,14 +107,10 @@ function addMessage (text, sender){
     });
 
     // Image
-    document.getElementById("add-image").addEventListener("click",()=>{
-        imgInput.click();
-    });
+    document.getElementById("add-image").addEventListener("click",()=> imgInput.click());
    
     // Document
-    document.getElementById("add-doc").addEventListener("click",()=>{
-        imgInput.click();
-    });
+    document.getElementById("add-doc").addEventListener("click",()=> docInput.click());
 
 //-----------------------
 // SEND FILE TO BACKEND
@@ -136,12 +127,14 @@ async function uploadFile(file) {
 
     try{
         const res = await fetch("http://127.0.0.1:5000/upload",{
+            method:"POST",
             body:formData
         });
 
         const data = await res.json();
         addMessage(data.response,"bot");
     } catch(error){
+        console.error(error);
         addMessage("Error uploading file","bot");
     }
 }
@@ -159,10 +152,14 @@ function saveChat(prompt,response){
 }
 
 historyBtn.addEventListener("click",() => {
-    historyMenu.style.display = 
-        historyMenu.style.display === "block"?"none":"block";
-
+    historyMenu.style.display = historyMenu.style.display === "block"?"none":"block";
     renderHistory();
+});
+
+document.addEventListener("click",(e)=>{
+    if (!historyBtn.contains(e.target) && !historyBtn.contains(e.target)){
+        historyMenu.style.display="none";
+    }
 });
 
 function renderHistory(){

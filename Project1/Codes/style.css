@@ -45,11 +45,6 @@ header{
     text-align: center;
 }
 
-header h1{
-    font-size: 1.6em;
-    margin-bottom: 4px;
-}
-
 .history-container{
     position: absolute;
     right: 20px;
@@ -58,70 +53,55 @@ header h1{
 }
 
 #history-btn{
-    padding: 10px 8px;
-    background:#6a5acd ;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    cursor:pointer;
-    font-weight: 600;
-    transition: background 0.3s;
-}
-/*
-#history-btn{
     position: absolute;
     right: 20px;
     top: 50%;
-    transform: translateY(-50%);
-
-    width: 0.8cm;
-    height: 0.3cm;
+    transform: translateY(80%);
+    width: 1.2cm;
+    height: 0.5cm;
     background:#6a5acd;
     border:none;
     border-radius: 10px;
     cursor: pointer;
-}*/
-#history-btn:hover{
-    background:#5a4aa3;
 }
 
 .history-menu{
     display: none;
     position: absolute;
-    top: 50%;
+    top: 45px;
     right: 0;
-    width: 180px;
+    width: 150px;
+    height: 450px; ;
     background: #fff;
     color: #333;
     border-radius: 10px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0.2);
-    padding: 8px 0;
-    z-index: 200;
+    box-shadow: 0 4px 12px rgba(0, 0, 0.2);
+    max-height: 250px;
+    overflow-y:auto;
+    z-index:10;
 }
 
-.history-menu .chat-item{
-    padding: 8px 12px;
+.chat-item{
+    padding: 8px;
     cursor: pointer;
+    border-radius: 8px;
 }
 
-.history-menu .chat-item:hover{
-    background-color: #f0f0f0;
+.chat-item:hover{
+    background: #eee;
 }
 
 #new-chat-btn{
-    display: block;
-    width: 100%;
-    padding: 8px 12px;
-    border: none;
-    background: #6a5acd;
-    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 100%;
+    transform: translateY(-60%);
+    width: 1.2cm;
+    height: 0.5cm;
+    background:#6a5acd;
+    border:none;
     border-radius: 10px;
-    margin-top: 5px;
     cursor: pointer;
-}
-
-#new-chat-btn:hover{
-    background: #5a4aa3;
 }
 
 /*Chat*/
