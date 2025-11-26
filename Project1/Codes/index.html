@@ -2,18 +2,13 @@
 #Name Project "Model Deployment and Basic Calling Ollama"
 #Vanessa Nava Alberto -->
 
-<!DOCTYE html>
-<!--Language-->
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <!--Codification-->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-
     <title>Interface AI</title>
-
-    <!--Charge file CSS-->
     <link rel="stylesheet" href="style.css"/>
 </head>
 
@@ -26,14 +21,14 @@
         </div>
 
         <div class="history-container">
-          <button id="history-btn" aria-label="Open history"></button>
-          <div class="history-menu">
-            <div class="chat-item">Chat 1</div>
-            </div class="chat-item">Chat 2</div>
-            <div class="chat-item">Chat 3</div>
+          <button id="history-btn" aria-label="Open history">history</button>
+          <div class="history-menu" aria-hidden="true">
+            <div class="chat-list">
+            </div>
 
             <hr>
-          <button id="new-chat-btn">+New Chat</button>
+
+          <button id="new-chat-btn">+ New Chat</button>
           </div>
         </div>
       </header>
@@ -53,8 +48,8 @@
       required/>
 
       <div class="attach-container">
-        <button type="button" id="attach-btn">+</button>
-        <div class="attach-menu">
+        <button type="button" id="attach-btn" aria-label="Attach">+</button>
+        <div class="attach-menu"aria-hidden="true">
           <button type="button" id="add-image">Add image</button>
           <button type="button" id="add-doc">Add Document</button>
         </div>
@@ -63,6 +58,9 @@
       <button type = "submit" id="send-btn">Send</button>
     </form>
   </div>
+
+  <input id="file-image-input" type="file" accept="image/*" style="display:none"/>
+  <input id="file-pdf-input" type="file" accept="application/pdf*" style="display:none"/>
 
     <script src="script.js"></script>
   </body>
