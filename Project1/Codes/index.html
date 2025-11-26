@@ -21,10 +21,9 @@
         </div>
 
         <div class="history-container">
-          <button id="history-btn" aria-label="Open history">history</button>
-          <div class="history-menu" aria-hidden="true">
-            <div class="chat-list">
-            </div>
+          <button id="history-btn">history</button>
+          <div class="history-menu">
+            <div class="chat-list"></div>
 
             <hr>
 
@@ -40,27 +39,23 @@
     </main>
 
     <form id="chat-form">
-      <input 
-      type="text" 
-      id="user-input"
-      placeholder = "Write your question"
-      autocomplete = "off" 
-      required/>
+      <input id="user-input" type="text" placeholder = "Write your question"
+      autocomplete = "off" required/>
 
       <div class="attach-container">
-        <button type="button" id="attach-btn" aria-label="Attach">+</button>
-        <div class="attach-menu"aria-hidden="true">
-          <button type="button" id="add-image">Add image</button>
-          <button type="button" id="add-doc">Add Document</button>
+        <button type="button" id="attach-btn">+</button>
+        <div class="attach-menu">
+          <button id="add-image">Add image</button>
+          <button id="add-doc">Add Document</button>
         </div>
       </div>
 
-      <button type = "submit" id="send-btn">Send</button>
+      <button id="send-btn" type="submit">Send</button>
     </form>
   </div>
 
-  <input id="file-image-input" type="file" accept="image/*" style="display:none"/>
-  <input id="file-pdf-input" type="file" accept="application/pdf*" style="display:none"/>
+  <input id="file-image-input" type="file" accept="image/*" hidden>
+  <input id="file-doc-input" type="file" accept=".pdf,.txt,.doc,.docx,.pptx" hidden>
 
     <script src="script.js"></script>
   </body>
